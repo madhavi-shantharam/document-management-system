@@ -1,4 +1,4 @@
-package com.madhavi.userservice.model;
+package com.madhavi.userservice.entity;
 
 import jakarta.persistence.*;
 

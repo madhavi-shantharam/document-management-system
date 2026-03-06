@@ -1,6 +1,6 @@
 package com.madhavi.userservice.controller;
 
-import com.madhavi.userservice.model.User;
+import com.madhavi.userservice.entity.User;
 import com.madhavi.userservice.repository.UserRepository;
 import org.springframework.web.bind.annotation.*;
 
