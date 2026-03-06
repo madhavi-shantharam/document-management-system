@@ -1,4 +1,4 @@
-package com.example.documentservice.service;
+package com.dms.documentservice.service;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.springframework.stereotype.Service;

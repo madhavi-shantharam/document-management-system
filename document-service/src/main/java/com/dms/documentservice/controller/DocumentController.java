@@ -1,10 +1,9 @@
-package com.example.documentservice.controller;
+package com.dms.documentservice.controller;
 
-import com.example.documentservice.model.Document;
-import com.example.documentservice.repository.DocumentRepository;
-import com.example.documentservice.service.NotificationClient;
+import com.dms.documentservice.entity.Document;
+import com.dms.documentservice.repository.DocumentRepository;
+import com.dms.documentservice.service.NotificationClient;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 

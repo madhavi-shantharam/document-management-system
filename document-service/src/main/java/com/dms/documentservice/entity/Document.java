@@ -1,4 +1,4 @@
-package com.example.documentservice.model;
+package com.dms.documentservice.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

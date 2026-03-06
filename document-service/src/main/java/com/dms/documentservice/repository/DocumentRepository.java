@@ -1,6 +1,6 @@
-package com.example.documentservice.repository;
+package com.dms.documentservice.repository;
 
-import com.example.documentservice.model.Document;
+import com.dms.documentservice.entity.Document;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface DocumentRepository extends JpaRepository<Document, Long> {

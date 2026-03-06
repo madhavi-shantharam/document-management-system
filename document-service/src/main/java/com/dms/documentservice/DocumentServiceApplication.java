@@ -1,4 +1,4 @@
-package com.example.documentservice;
+package com.dms.documentservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
