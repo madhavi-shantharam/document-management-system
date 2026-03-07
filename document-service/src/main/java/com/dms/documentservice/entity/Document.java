@@ -1,52 +1,80 @@
 package com.dms.documentservice.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.time.LocalDateTime;
 
 @Entity
 public class Document {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private String title;
-    private String content;
-    private Long userId;
+    private String name;
+    private String ownerId;
+    private Integer version;
+    private String fileUrl;
+    private String checksum;
+    private LocalDateTime createdAt;
 
     public Document() {}
-    public Document(Long id, String title, String content, Long userId) {
-        this.title = title;
-        this.content = content;
-        this.userId = userId;
+
+    public Document(String name, String fileUrl, Integer version) {
+        this.name = name;
+        this.fileUrl = fileUrl;
+        this.version = version;
+    }
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = LocalDateTime.now();
     }
 
     public Long getId() {
         return id;
     }
-
-    public String getTitle() {
-        return title;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getContent() {
-        return content;
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Long getUserId() {
-        return userId;
+    public Integer getVersion() {
+        return version;
+    }
+    public void setVersion(Integer version) {
+        this.version = version;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public String getFileUrl() {
+        return fileUrl;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setFileUrl(String fileUrl) {
+        this.fileUrl = fileUrl;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public String getChecksum() {
+        return checksum;
+    }
+
+    public void setChecksum(String checksum) {
+        this.checksum = checksum;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public String getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(String ownerId) {
+        this.ownerId = ownerId;
     }
 }
