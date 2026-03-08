@@ -10,10 +10,18 @@ public class Document {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+
+    @Column(name="owner_id")
     private String ownerId;
+
     private Integer version;
+
+    @Column(name="file_url")
     private String fileUrl;
+
     private String checksum;
+
+    @Column(name="created_at")
     private LocalDateTime createdAt;
 
     public Document() {}
