@@ -1,7 +1,10 @@
 package com.dms.documentservice.service;
 
 import com.dms.documentservice.entity.Document;
+import com.dms.documentservice.events.DocumentEventProducer;
+import com.dms.documentservice.events.DocumentUploadedEvent;
 import com.dms.documentservice.repository.DocumentRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -14,9 +17,17 @@ public class DocumentService {
     private final DocumentRepository documentRepository;
     private final FileStorageService fileStorageService;
 
-    public DocumentService(DocumentRepository documentRepository, FileStorageService fileStorageService) {
+    @Autowired
+    private final DocumentEventProducer documentEventProducer;
+
+    public DocumentService(
+            DocumentRepository documentRepository,
+            FileStorageService fileStorageService,
+            DocumentEventProducer documentEventProducer
+    ) {
         this.documentRepository = documentRepository;
         this.fileStorageService = fileStorageService;
+        this.documentEventProducer = documentEventProducer;
     }
 
     public Document uploadDocument(MultipartFile multipartFile, String ownerId) throws Exception {
@@ -42,7 +53,19 @@ public class DocumentService {
         document.setChecksum(checkSum);
         document.setOwnerId(ownerId);
 
-        return documentRepository.save(document);
+        Document savedDoc = documentRepository.save(document);
+
+        DocumentUploadedEvent event = new DocumentUploadedEvent();
+        event.setDocumentId(savedDoc.getId());
+        event.setName(savedDoc.getName());
+        event.setOwnerId(savedDoc.getOwnerId());
+        event.setVersion(savedDoc.getVersion());
+        event.setFileKey(savedDoc.getFileUrl());
+        event.setCreatedAt(savedDoc.getCreatedAt());
+
+        documentEventProducer.publishDocumentUploaded(event);
+
+        return savedDoc;
     }
 
     public String calculateCheckSum(byte[] bytes)  throws Exception {
